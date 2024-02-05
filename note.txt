@@ -1,0 +1,30 @@
+there two types of errors
+
+1. Validator Error:
+{
+    "error": [
+        {
+            "type": "field",
+            "value": null,
+            "msg": "Name characters must be at least 5 and less than 250 symbols",
+            "path": "name",
+            "location": "body"
+        },
+        {
+            "type": "field",
+            "value": null,
+            "msg": "Name characters must be string",
+            "path": "name",
+            "location": "body"
+        }
+    ]
+}
+
+2. Exception Error:
+
+{
+    "error": {
+        "message": "name is required in warehouse",
+        "statusCode": 400
+    }
+}
