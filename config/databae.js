@@ -1,7 +1,14 @@
 // database.js
 const { InternalServerError } = require('../src/utils/HttpErrors');
-const { Pool } = require('pg');
+const pg = require('pg');
+const { Pool } = pg
 require('dotenv').config();
+
+var types = pg.types;
+types.setTypeParser(1132, function(stringValue) {
+    return new Date(stringValue + "+0000");
+});
+
 
 const pool = new Pool({
     user: process.env.DB_USER,
@@ -9,6 +16,7 @@ const pool = new Pool({
     database: process.env.DB_DATABASE,
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT, // Default PostgreSQL port
+    
 });
 
 // const pool = new pg.Pool(PG)

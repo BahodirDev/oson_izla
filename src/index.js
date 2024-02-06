@@ -3,6 +3,7 @@ const morgan = require("morgan")
 const express = require('express');
 const app = express();
 const fileUp = require('express-fileupload');
+const { getUtcCallback } = require('./utils/getUtcCallback');
 
 // file upload lauch
 app.use(fileUp())
@@ -13,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 // morgan logs
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 // routes executes
-app.use('/api', require('./routes'))
+app.use('/api', getUtcCallback, require('./routes'));
 // error handling
 app.use(require('./utils/errorCallback'));
 

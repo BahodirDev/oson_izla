@@ -1,11 +1,13 @@
 const { validationResult } = require('express-validator');
 const {
+    deleteWareHouseImagesModel,
+    deleteWareHousesModel,
     patchWareHousesModel,
     postWareHousesModel,
-    getWareHousesModel
+    getWareHousesModel,
 } = require('./warehouses.model');
 const { checkWarehouses } = require('../../utils/checkInput');
-const { BadUserInput } = require('../../utils/HttpErrors');
+const { NotFoundError, InternalServerError } = require('../../utils/HttpErrors');
 
 
 
@@ -25,6 +27,9 @@ async function postWareHousesController(req, res, next) {
         }
         await checkWarehouses(req.body);
         const data = await postWareHousesModel(req);
+        if (!data) {
+            throw new InternalServerError("Error in adding new warehouse")
+        }
         res.status(201).json(data)
     } catch (error) {
         next(error)
@@ -38,15 +43,43 @@ async function patchWareHousesController(req, res, next) {
         }
         await checkWarehouses(req?.body);
         const data = await patchWareHousesModel(req);
-
-        if (!data) throw new BadUserInput("this warehouse is not defined")
+        if (!data) throw new NotFoundError("this warehouse is not defined")
         res.status(201).json(data)
     } catch (error) {
         next(error);
     }
 }
+async function deleteWareHouseImagesController(req, res, next) {
+    try {
+        const error = validationResult(req);
+        if (!error.isEmpty()) {
+            res.status(400).json({ error: error.array() })
+        }
+        const data = await deleteWareHouseImagesModel(req);
+        if (!data) throw new NotFoundError("this warehouse is not defined");
+        res.status(201).json(data)
+    } catch (error) {
+        next(error);
+    }
+}
+async function deleteWareHousesController(req, res, next) {
+    try {
+        const error = validationResult(req);
+        if (!error.isEmpty()) {
+            res.status(400).json({ error: error.array() })
+        }
+        const data = await deleteWareHousesModel(req);
+        if (!data) throw new NotFoundError("this warehouse is not defined");
+        res.status(200).json(data)
+    } catch (error) {
+        next(error);
+    }
+}
+
 
 module.exports = {
+    deleteWareHouseImagesController,
+    deleteWareHousesController,
     patchWareHousesController,
     postWareHousesController,
     getWareHousesController,

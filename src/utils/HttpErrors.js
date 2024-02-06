@@ -15,6 +15,14 @@ class InternalServerError extends Error {
         this.stack = stack;
     }
 }
+class NotFoundError extends Error {
+    constructor(message, stack = "logger") {
+        super(message)
+        this.name = "InternalServerError";
+        this.code = 404;
+        this.stack = stack;
+    }
+}
 
 
-module.exports = { BadUserInput, InternalServerError };
+module.exports = { BadUserInput, InternalServerError, NotFoundError };
