@@ -18,7 +18,6 @@ exports.wareHousePatchValidator = [
     param('id')
         .isUUID(4)
         .withMessage("Param must be sent in UUID4 version"),
-
     body('name')
         .optional()
         .custom((value, { req }) => {
@@ -33,7 +32,6 @@ exports.wareHousePatchValidator = [
             return true; // If 'name' is not provided (optional)
         })
         .withMessage("Name must be between 5 and 250 characters")
-
 ];
 
 
