@@ -53,7 +53,7 @@ CREATE TABLE warehouses (
     warehouse_img TEXT,
     warehouse_active BOOLEAN DEFAULT true NOT NULL,
     warehouse_createdat TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    warehouse_deletedat TIMESTAMP WITH TIME ZONE DEFAULT null
+    warehouse_deletedat TIMESTAMP WITH TIME ZONE DEFAULT NULL
 );
 
 -- Set the default time zone for warehouse_createdat to UTC

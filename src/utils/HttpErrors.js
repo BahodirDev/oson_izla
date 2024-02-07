@@ -1,8 +1,10 @@
+const { StatusCode } = require("../enums/statusCodeEnum");
+
 class BadUserInput extends Error {
     constructor(message, stack = "logger") {
         super(message)
         this.name = "CustomError";
-        this.code = 400;
+        this.code = StatusCode.badRequest;
         this.stack = stack;
     }
 }
@@ -11,7 +13,7 @@ class InternalServerError extends Error {
     constructor(message, stack = "logger") {
         super(message)
         this.name = "InternalServerError";
-        this.code = 500;
+        this.code = StatusCode.serverError;
         this.stack = stack;
     }
 }
@@ -19,7 +21,7 @@ class NotFoundError extends Error {
     constructor(message, stack = "logger") {
         super(message)
         this.name = "InternalServerError";
-        this.code = 404;
+        this.code = StatusCode.notFound;
         this.stack = stack;
     }
 }

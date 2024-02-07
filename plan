@@ -2,13 +2,11 @@
 2. Patch ni bajarish kerak. ✅
 3. count ni ham chiqarib berish ✅
 4. edit bo'lganda, eski rasmni o'chirish ✅
-5. utc ni session bilan ishlatish  ✅
-6. suratni o'chirish  ✅
-7. delete ni ishlatish zarur
-8. active va disactive ni ishlatish
-9. statuslar uchun enum yozish
-10. rasmni boshidan 2 harf qo'yib yozish
-11. message kalit so'zini sozlab qo'yish
-12. restore deleted informations
-13. make all times formated
+5. utc ni session bilan ishlatish ✅
+6. suratni o'chirish ✅
+7. delete ni ishlatish zarur ✅
+8. active va disactive ni ishlatish ✅
+9. statuslar uchun enum yozish  ✅
+12. restore deleted informations  ✅
+13. make all times formated 
 14. utc ni sozlash
