@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.wareHouseRouter = void 0;
+const express_1 = require("express");
+let router = (0, express_1.Router)();
+exports.wareHouseRouter = router;
+const wareHouse_validator_1 = require("../../validators/wareHouse.validator");
+const warehouses_controller_1 = require("./warehouses.controller");
+router.get('/warehouses/list', warehouses_controller_1.getWareHousesController);
+router.post('/warehouses/post', wareHouse_validator_1.wareHousePostValidator, warehouses_controller_1.postWareHousesController);
+router.patch('/warehouses/patch/:id', wareHouse_validator_1.wareHousePatchValidator, warehouses_controller_1.patchWareHousesController);
+router.patch('/warehouses/imd-del/:id', wareHouse_validator_1.wareHousePatchValidator, warehouses_controller_1.deleteWareHouseImagesController);
+router.patch('/warehouses/restore/:id', wareHouse_validator_1.wareHousePatchValidator, warehouses_controller_1.restoreWareHouseImagesController);
+router.patch('/warehouses/enable/:id', wareHouse_validator_1.wareHousePatchValidator, warehouses_controller_1.EnableDisableWareHouseImagesController);
+router.delete('/warehouses/delete/:id', wareHouse_validator_1.wareHousePatchValidator, warehouses_controller_1.deleteWareHousesController);
