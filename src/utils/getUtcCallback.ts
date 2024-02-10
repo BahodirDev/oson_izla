@@ -4,7 +4,7 @@ import { UTC } from "../enums/utcEnum";
 
 
 function getUtcCallback(req: Request, res: Response, next: NextFunction) {
-    // let clientTimezoneOffset: number | string | string[] = req.headers['x-timezone'] ?? UTC.utc;
+    // let clientTimezoneOffset: number | string | string[] = req.headers['timezone'] ?? UTC.utc;
     let clientTimezoneOffset: number = UTC.utc;
     let clientTimezone;
 
@@ -21,6 +21,7 @@ function getUtcCallback(req: Request, res: Response, next: NextFunction) {
         const minutes = Math.abs(clientTimezoneOffset % 1 * 60);
         clientTimezone = `UTC${sign}${hours}:${minutes}`;
     }
+
     req.utc = clientTimezone;
 
     next();

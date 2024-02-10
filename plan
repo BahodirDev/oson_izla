@@ -8,5 +8,6 @@
 8. active va disactive ni ishlatish ✅
 9. statuslar uchun enum yozish  ✅
 12. restore deleted informations  ✅
-13. make all times formated 
-14. utc ni sozlash
+13. make all times formated ⏲
+14. utc ni sozlash ✅
+15. refoctor erroBack build-in function

@@ -1,4 +1,4 @@
-const { body, param } = require('express-validator');
+import { body, param } from 'express-validator';
 
 const wareHousePostValidator = [
     body("name", "Name field is required")

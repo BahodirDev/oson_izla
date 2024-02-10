@@ -11,8 +11,10 @@ export function controller(routePrefix: string) {
             const path = Reflect.getMetadata(MetaDatakeys.path, target.prototype, key);
             const method: Methods = Reflect.getMetadata(MetaDatakeys.method, target.prototype, key);
             const middlewares = Reflect.getMetadata(MetaDatakeys.middleware, target.prototype, key) || [];
+            const validator = Reflect.getMetadata(MetaDatakeys.validator, target.prototype, key) || [];
+
             if (path) {
-                router[method](`${routePrefix}${path}`, ...middlewares, routeHandler);
+                router[method](`${routePrefix}${path}`, ...middlewares, validator, routeHandler);
             }
         });
     }

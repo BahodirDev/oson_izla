@@ -2,11 +2,11 @@ import { config } from "dotenv"
 import morgan from "morgan"
 import express from "express"
 import fileUpload from "express-fileupload";
-// import { getUtcCallback } from "./utils/getUtcCallback.js";
+import { getUtcCallback } from "./utils/getUtcCallback.js";
 // import { routes } from './routes'
 import errorCallback from "./utils/errorCallback.js";
 import { AppRouter } from "./AppRouter"
-import './controllers/WareHouseContrller'
+import './controllers/WareHouseController.js'
 
 declare module "express" {
     interface Request {
@@ -29,10 +29,12 @@ app.use(express.json())
 // urlencoded plugin launched
 app.use(express.urlencoded({ extended: true }));
 // morgan logs
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms')); // -> // GET /api/warehouses/list 200 247 - 58.854 ms
+// app.use(morgan('dev')); // -> // GET /api/warehouses/list 200 68.617 ms - 247
+
 // routes executes
 // app.use('/api', getUtcCallback, routes);
-app.use("/api", AppRouter.getInstance());
+app.use("/api", getUtcCallback, AppRouter.getInstance());
 // error handling
 app.use(errorCallback);
 

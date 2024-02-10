@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.wareHousePostValidator = exports.wareHousePatchValidator = void 0;
-const { body, param } = require('express-validator');
+const express_validator_1 = require("express-validator");
 const wareHousePostValidator = [
-    body("name", "Name field is required")
+    (0, express_validator_1.body)("name", "Name field is required")
         .notEmpty()
         .withMessage("Name is required!")
         .trim()
@@ -18,10 +18,10 @@ const wareHousePostValidator = [
 ];
 exports.wareHousePostValidator = wareHousePostValidator;
 const wareHousePatchValidator = [
-    param('id')
+    (0, express_validator_1.param)('id')
         .isUUID(4)
         .withMessage("Param must be sent in UUID4 version"),
-    body('name')
+    (0, express_validator_1.body)('name')
         .optional()
         .custom((value, {}) => {
         // Check if the 'name' field is provided (not empty)
