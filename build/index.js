@@ -7,9 +7,11 @@ const dotenv_1 = require("dotenv");
 const morgan_1 = __importDefault(require("morgan"));
 const express_1 = __importDefault(require("express"));
 const express_fileupload_1 = __importDefault(require("express-fileupload"));
-const getUtcCallback_js_1 = require("./utils/getUtcCallback.js");
-const routes_1 = require("./routes");
+// import { getUtcCallback } from "./utils/getUtcCallback.js";
+// import { routes } from './routes'
 const errorCallback_js_1 = __importDefault(require("./utils/errorCallback.js"));
+const AppRouter_1 = require("./AppRouter");
+require("./controllers/WareHouseContrller");
 const app = (0, express_1.default)();
 (0, dotenv_1.config)();
 // file upload lauch
@@ -21,7 +23,8 @@ app.use(express_1.default.urlencoded({ extended: true }));
 // morgan logs
 app.use((0, morgan_1.default)(':method :url :status :res[content-length] - :response-time ms'));
 // routes executes
-app.use('/api', getUtcCallback_js_1.getUtcCallback, routes_1.routes);
+// app.use('/api', getUtcCallback, routes);
+app.use("/api", AppRouter_1.AppRouter.getInstance());
 // error handling
 app.use(errorCallback_js_1.default);
 const PORT = process.env.PORT || 8080;
