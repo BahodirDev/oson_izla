@@ -6,7 +6,7 @@ import { getUtcCallback } from "./utils/getUtcCallback.js";
 // import { routes } from './routes'
 import errorCallback from "./utils/errorCallback.js";
 import { AppRouter } from "./AppRouter"
-import './controllers/WareHouseController.js'
+import './controllers'
 
 declare module "express" {
     interface Request {

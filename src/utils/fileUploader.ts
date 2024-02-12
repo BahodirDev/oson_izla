@@ -3,7 +3,7 @@ import { getRandomName } from './inputFormatter'
 import FileEnum from '../enums/filterEnum'
 import GlobalPathes from '../enums/globalPathEnum'
 import { fetchAll, fetch } from '../config/database'
-import warehouseSQL from '../routes/warehouses/warehouse.sql'
+import warehouseSQL from '../sqlQueries/warehouse.sql'
 import { BadUserInput, InternalServerError } from "./HttpErrors"
 
 async function fileUploader(uploadedFile: {

@@ -12,10 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkWarehouses = void 0;
+exports.checkCompanies = exports.checkWarehouses = void 0;
 const database_1 = require("../config/database");
-const warehouse_sql_1 = __importDefault(require("../routes/warehouses/warehouse.sql"));
+const warehouse_sql_1 = __importDefault(require("../sqlQueries/warehouse.sql"));
 const HttpErrors_1 = require("./HttpErrors");
+const sqlQueries_1 = require("../sqlQueries");
 function checkWarehouses({ name }) {
     return __awaiter(this, void 0, void 0, function* () {
         const isExist = yield (0, database_1.fetchAll)(warehouse_sql_1.default.CHECK_IF_EXIST, name);
@@ -25,3 +26,12 @@ function checkWarehouses({ name }) {
     });
 }
 exports.checkWarehouses = checkWarehouses;
+function checkCompanies({ company_sub_name }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const isExist = yield (0, database_1.fetchAll)(sqlQueries_1.CHECK_IF_COMPANY_EXIST, company_sub_name);
+        if (isExist.length > 0) {
+            throw new HttpErrors_1.BadUserInput(`${company_sub_name} is already exist`, '');
+        }
+    });
+}
+exports.checkCompanies = checkCompanies;

@@ -4,7 +4,7 @@ import StatusCode from '../enums/statusCodeEnum';
 import { controller, validator, del, get, patch, post } from "./decorators"
 import { wareHousePatchValidator, wareHousePostValidator } from '../validators/wareHouse.validator';
 import { validationResult } from 'express-validator';
-import { checkWarehouses, NotFoundError } from '../utils';
+import { checkWarehouses, InternalServerError, NotFoundError } from '../utils';
 
 
 
@@ -13,10 +13,16 @@ import { checkWarehouses, NotFoundError } from '../utils';
 export class WareHouseController {
     @get('/list')
     async getWarehouses(req: Request, res: Response, next: NextFunction) {
-        const data = await getWareHousesModel(req);
-        if (data) {
-            return res.status(StatusCode.success).json(data)
+        try {
+            const data = await getWareHousesModel(req);
+            if (data) {
+                return res.status(StatusCode.success).json(data)
+            }
+            throw new InternalServerError("Something went wrong on getting warehouses")
+        } catch (error) {
+            next(error)
         }
+
     }
 
     @post('/post')

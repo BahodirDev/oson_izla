@@ -18,7 +18,7 @@ const inputFormatter_1 = require("./inputFormatter");
 const filterEnum_1 = __importDefault(require("../enums/filterEnum"));
 const globalPathEnum_1 = __importDefault(require("../enums/globalPathEnum"));
 const database_1 = require("../config/database");
-const warehouse_sql_1 = __importDefault(require("../routes/warehouses/warehouse.sql"));
+const warehouse_sql_1 = __importDefault(require("../sqlQueries/warehouse.sql"));
 const HttpErrors_1 = require("./HttpErrors");
 function fileUploader(uploadedFile, id, utc = 0) {
     return __awaiter(this, void 0, void 0, function* () {

@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { fetchAll, fetch } from '../../config/database'
-import warehouseSQL from './warehouse.sql'
+import warehouseSQL from '../../sqlQueries/warehouse.sql'
 import { fileUnuploader, fileUploader } from "../../utils/fileUploader";
 import { UploadedFile } from 'express-fileupload';
 

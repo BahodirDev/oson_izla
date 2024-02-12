@@ -56,22 +56,21 @@ CREATE TABLE warehouses (
     warehouse_deletedat TIMESTAMP WITH TIME ZONE DEFAULT NULL
 );
 
--- Set the default time zone for warehouse_createdat to UTC
--- ALTER TABLE warehouses
--- ALTER COLUMN warehouse_deletedat SET DEFAULT null;
--- ALTER COLUMN warehouse_createdat SET DEFAULT CURRENT_TIMESTAMP AT TIME ZONE 'UTC';
-
-
 -- warehouses --
 -- companies --
 drop table if exists companies cascade;
 
-CREATE TABLE companies(
+CREATE TABLE companies (
     company_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    company_name varchar(250),
-    company_img text,
-    company_location POINT,
-    company_summary varchar(250)
+    company_name VARCHAR(250) NOT NULL,
+    company_sub_name VARCHAR(250),
+    company_img TEXT,
+    company_latitude FLOAT, -- Latitude
+    company_longitude FLOAT, -- Longitude
+    company_summary VARCHAR(250),
+    company_active BOOLEAN DEFAULT true NOT NULL,
+    company_createdat TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    company_deletedat TIMESTAMP
 );
 
 -- companies --

@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getWareHousesModel = exports.postWareHousesModel = exports.patchWareHousesModel = exports.deleteWareHousesModel = exports.restoreWareHousesModel = exports.deleteWareHouseImagesModel = exports.EnableDisableWareHousesModel = void 0;
 const database_1 = require("../../config/database");
-const warehouse_sql_1 = __importDefault(require("./warehouse.sql"));
+const warehouse_sql_1 = __importDefault(require("../../sqlQueries/warehouse.sql"));
 const fileUploader_1 = require("../../utils/fileUploader");
 function getWareHousesModel(req) {
     return __awaiter(this, void 0, void 0, function* () {

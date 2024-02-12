@@ -1,10 +1,5 @@
-const CREATE_NEW_WAREHOUSE = `
-    INSERT INTO 
-    warehouses(warehouse_name,warehouse_img)
-    VALUES($1,$2)
-    returning *
-`;
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const GET_WAREHOUSES = `
     SELECT 
     wh.*,
@@ -27,7 +22,6 @@ const GET_WAREHOUSES = `
         ORDER BY warehouse_id DESC
         OFFSET $1 ROWS FETCH FIRST $2 ROW ONLY
 `;
-
 const GET_WAREHOUSE = `
     SELECT 
     wh.*,
@@ -47,13 +41,17 @@ const GET_WAREHOUSE = `
         wh.warehouse_id = $1
         ORDER BY warehouse_id DESC
 `;
-
 const CHECK_IF_EXIST = `
     SELECT wh.warehouse_name
     from warehouses as wh
     where wh.warehouse_name = $1 and warehouse_deletedat is null
 `;
-
+const CREATE_NEW_WAREHOUSE = `
+    INSERT INTO 
+    warehouses(warehouse_name,warehouse_img)
+    VALUES($1,$2)
+    returning *
+`;
 const EDIT_WAREHOUSE = `
     UPDATE warehouses
         set
@@ -70,29 +68,25 @@ const EDIT_WAREHOUSE = `
         where warehouse_id = $1 and warehouse_deletedat is null
         returning *    
 `;
-
 const EDIT_WAREHOUSE_IMG = `
     UPDATE warehouses
         set warehouse_img = null
         where warehouse_id = $1 and warehouse_img is not null
         returning *
-`
-
+`;
 const DELETE_WAREHOUSE = `
         UPDATE warehouses 
         set warehouse_deletedat = CURRENT_TIMESTAMP,
         warehouse_active = false
         where warehouse_id = $1 and warehouse_deletedat is null
         returning *
-`
-
+`;
 const RESTORE_WAREHOUSE = `
     UPDATE warehouses
         set warehouse_deletedat = null
         where warehouse_id = $1 and warehouse_deletedat is not null
         returning *
 `;
-
 const DISABLE_ENABLE_WAREHOUSE = `
     UPDATE warehouses 
     SET warehouse_active = 
@@ -104,7 +98,6 @@ const DISABLE_ENABLE_WAREHOUSE = `
     RETURNING *;
 
 `;
-
 const warehouseSQL = {
     DISABLE_ENABLE_WAREHOUSE,
     CREATE_NEW_WAREHOUSE,
@@ -116,5 +109,4 @@ const warehouseSQL = {
     CHECK_IF_EXIST,
     GET_WAREHOUSE
 };
-
-export default warehouseSQL
+exports.default = warehouseSQL;

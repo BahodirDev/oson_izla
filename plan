@@ -10,4 +10,12 @@
 12. restore deleted informations  ✅
 13. make all times formated ⏲
 14. utc ni sozlash ✅
+21. make models class ⏲
+20. make validaton for company strings length
 15. refoctor erroBack build-in function
+16. make multiple places for images
+17. make multiple branches tied to a company with id
+18. check id from all get request for uuid
+18. make address for tables which needed
+19. make checkInput with less code ⏲
+19. make warehouse attehched to company with id and check name with id together ⏲

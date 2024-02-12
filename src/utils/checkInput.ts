@@ -1,14 +1,25 @@
 import { fetchAll } from '../config/database'
-import warehouseSQL from '../routes/warehouses/warehouse.sql'
+import warehouseSQL from '../sqlQueries/warehouse.sql'
 import { BadUserInput } from './HttpErrors'
+import { CHECK_IF_COMPANY_EXIST } from '../sqlQueries'
 
 async function checkWarehouses({ name }: { name: string }) {
 
     const isExist: [{ warehouse_name: string }] = await fetchAll(warehouseSQL.CHECK_IF_EXIST, name);
 
     if (isExist.length > 0) {
-        throw new BadUserInput(`${name} is already exist`,'')
+        throw new BadUserInput(`${name} is already exist`, '')
     }
 }
 
-export { checkWarehouses };
+
+async function checkCompanies({ company_sub_name }: { company_sub_name: string }) {
+
+    const isExist: [{ warehouse_name: string }] = await fetchAll(CHECK_IF_COMPANY_EXIST, company_sub_name);
+
+    if (isExist.length > 0) {
+        throw new BadUserInput(`${company_sub_name} is already exist`, '')
+    }
+}
+
+export { checkWarehouses, checkCompanies };

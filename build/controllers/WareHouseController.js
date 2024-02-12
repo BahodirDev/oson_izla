@@ -31,9 +31,15 @@ const utils_1 = require("../utils");
 let WareHouseController = class WareHouseController {
     getWarehouses(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            const data = yield (0, warehouses_model_1.getWareHousesModel)(req);
-            if (data) {
-                return res.status(statusCodeEnum_1.default.success).json(data);
+            try {
+                const data = yield (0, warehouses_model_1.getWareHousesModel)(req);
+                if (data) {
+                    return res.status(statusCodeEnum_1.default.success).json(data);
+                }
+                throw new utils_1.InternalServerError("Something went wrong on getting warehouses");
+            }
+            catch (error) {
+                next(error);
             }
         });
     }

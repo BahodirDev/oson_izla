@@ -11,7 +11,7 @@ const getUtcCallback_js_1 = require("./utils/getUtcCallback.js");
 // import { routes } from './routes'
 const errorCallback_js_1 = __importDefault(require("./utils/errorCallback.js"));
 const AppRouter_1 = require("./AppRouter");
-require("./controllers/WareHouseController.js");
+require("./controllers");
 const app = (0, express_1.default)();
 (0, dotenv_1.config)();
 // file upload lauch
