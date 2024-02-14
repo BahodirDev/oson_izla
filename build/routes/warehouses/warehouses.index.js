@@ -9,7 +9,7 @@ const warehouses_controller_1 = require("./warehouses.controller");
 router.get('/warehouses/list', warehouses_controller_1.getWareHousesController);
 router.post('/warehouses/post', wareHouse_validator_1.wareHousePostValidator, warehouses_controller_1.postWareHousesController);
 router.patch('/warehouses/patch/:id', wareHouse_validator_1.wareHousePatchValidator, warehouses_controller_1.patchWareHousesController);
-router.patch('/warehouses/imd-del/:id', wareHouse_validator_1.wareHousePatchValidator, warehouses_controller_1.deleteWareHouseImagesController);
+router.patch('/warehouses/img-del/:id', wareHouse_validator_1.wareHousePatchValidator, warehouses_controller_1.deleteWareHouseImagesController);
 router.patch('/warehouses/restore/:id', wareHouse_validator_1.wareHousePatchValidator, warehouses_controller_1.restoreWareHouseImagesController);
 router.patch('/warehouses/enable/:id', wareHouse_validator_1.wareHousePatchValidator, warehouses_controller_1.EnableDisableWareHouseImagesController);
 router.delete('/warehouses/delete/:id', wareHouse_validator_1.wareHousePatchValidator, warehouses_controller_1.deleteWareHousesController);

@@ -20,8 +20,9 @@ const globalPathEnum_1 = __importDefault(require("../enums/globalPathEnum"));
 const database_1 = require("../config/database");
 const warehouse_sql_1 = __importDefault(require("../sqlQueries/warehouse.sql"));
 const HttpErrors_1 = require("./HttpErrors");
-function fileUploader(uploadedFile, id, utc = 0) {
+function fileUploader(uploadedFile, id, utc = 0, isUpdate) {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log({ uploadedFile });
         if (uploadedFile) {
             // cheking filter params
             let nameFile = yield (0, inputFormatter_1.getRandomName)(uploadedFile);
@@ -40,17 +41,20 @@ function fileUploader(uploadedFile, id, utc = 0) {
                 console.log('Folder already exists:', fileFolder);
             }
             ;
-            const warehouse = yield (0, database_1.fetch)(warehouse_sql_1.default.GET_WAREHOUSE, id !== null && id !== void 0 ? id : null, false, true, utc);
-            if (warehouse === null || warehouse === void 0 ? void 0 : warehouse.warehouse_img) {
-                try {
-                    fs.unlink(fileFolder + "/" + (warehouse === null || warehouse === void 0 ? void 0 : warehouse.warehouse_img), (err) => {
-                        if (err) {
-                            console.log({ err });
-                        }
-                    });
-                }
-                catch (error) {
-                    throw new HttpErrors_1.InternalServerError("Error in deleting file");
+            if (isUpdate) {
+                const { SQL, img } = isUpdate;
+                const warehouse = yield (0, database_1.fetch)(SQL, id !== null && id !== void 0 ? id : null, false, true, utc);
+                if (warehouse[isUpdate.img]) {
+                    try {
+                        fs.unlink(fileFolder + "/" + warehouse[isUpdate.img], (err) => {
+                            if (err) {
+                                console.log({ err });
+                            }
+                        });
+                    }
+                    catch (error) {
+                        throw new HttpErrors_1.InternalServerError("Error in deleting file");
+                    }
                 }
             }
             uploadedFile.mv(fileFolder + '/' + nameFile, (err) => {

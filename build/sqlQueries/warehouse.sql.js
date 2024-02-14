@@ -71,7 +71,7 @@ const EDIT_WAREHOUSE = `
 const EDIT_WAREHOUSE_IMG = `
     UPDATE warehouses
         set warehouse_img = null
-        where warehouse_id = $1 and warehouse_img is not null
+        where warehouse_id = $1 and warehouse_img is not null  warehouse_deletedat is null
         returning *
 `;
 const DELETE_WAREHOUSE = `

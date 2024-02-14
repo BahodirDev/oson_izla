@@ -16,7 +16,7 @@ import {
 router.get('/warehouses/list', getWareHousesController);
 router.post('/warehouses/post', wareHousePostValidator, postWareHousesController);
 router.patch('/warehouses/patch/:id', wareHousePatchValidator, patchWareHousesController);
-router.patch('/warehouses/imd-del/:id', wareHousePatchValidator, deleteWareHouseImagesController);
+router.patch('/warehouses/img-del/:id', wareHousePatchValidator, deleteWareHouseImagesController);
 router.patch('/warehouses/restore/:id', wareHousePatchValidator, restoreWareHouseImagesController);
 router.patch('/warehouses/enable/:id', wareHousePatchValidator, EnableDisableWareHouseImagesController);
 router.delete('/warehouses/delete/:id', wareHousePatchValidator, deleteWareHousesController);

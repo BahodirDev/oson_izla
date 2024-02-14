@@ -9,7 +9,8 @@ import { BadUserInput, InternalServerError } from "./HttpErrors"
 async function fileUploader(uploadedFile: {
     mv(arg0: string, arg1: (err: any) => void): unknown; name: string,
     size: number, mimetype: string
-}, id?: string, utc = 0) {
+}, id?: string, utc = 0, isUpdate?: any) {
+    console.log({ uploadedFile });
 
     if (uploadedFile) {
 
@@ -29,21 +30,27 @@ async function fileUploader(uploadedFile: {
             console.log('Folder already exists:', fileFolder);
         };
 
-        const warehouse: { warehouse_img: string } = await fetch(warehouseSQL.GET_WAREHOUSE, id ?? null, false, true, utc);
+        if (isUpdate) {
+            const { SQL, img } = isUpdate;
+            const warehouse = await fetch(SQL, id ?? null, false, true, utc);
 
-        if (warehouse?.warehouse_img) {
-            try {
-                fs.unlink(fileFolder + "/" + warehouse?.warehouse_img, (err: any) => {
-                    if (err) {
-                        console.log({ err });
-                    }
+            if (warehouse[isUpdate.img]) {
+                try {
+                    fs.unlink(fileFolder + "/" + warehouse[isUpdate.img], (err: any) => {
+                        if (err) {
+                            console.log({ err });
+                        }
 
-                });
-            } catch (error) {
-                throw new InternalServerError("Error in deleting file")
+                    });
+                } catch (error) {
+                    throw new InternalServerError("Error in deleting file")
+                }
+
             }
-
         }
+
+
+
         uploadedFile.mv(fileFolder + '/' + nameFile, (err) => {
             if (err) {
                 console.log({ err });

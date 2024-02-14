@@ -34,7 +34,6 @@ const fetch = async (SQL: string, ...params: any) => {
 const fetchAll = async (SQL: string, ...params: any) => {
     const client = await pool.connect();
 
-    
     try {
         const { rows } = await client.query(SQL, params.length ? params : null)
         return rows

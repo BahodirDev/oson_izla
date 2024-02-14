@@ -172,7 +172,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], WareHouseController.prototype, "patchWareHousesController", null);
 __decorate([
-    (0, decorators_1.patch)('/imd-del/:id'),
+    (0, decorators_1.patch)('/img-del/:id'),
     (0, decorators_1.validator)(wareHouse_validator_1.wareHousePatchValidator),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, Function]),

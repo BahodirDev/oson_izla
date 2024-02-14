@@ -70,7 +70,7 @@ CREATE TABLE companies (
     company_summary VARCHAR(250),
     company_active BOOLEAN DEFAULT true NOT NULL,
     company_createdat TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    company_deletedat TIMESTAMP
+    company_deletedat TIMESTAMP WITH TIME ZONE DEFAULT NULL
 );
 
 -- companies --

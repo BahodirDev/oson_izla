@@ -66,7 +66,7 @@ export class WareHouseController {
         }
     }
 
-    @patch('/imd-del/:id')
+    @patch('/img-del/:id')
     @validator(wareHousePatchValidator)
     async deleteWareHouseImagesController(req: Request, res: Response, next: NextFunction) {
         try {

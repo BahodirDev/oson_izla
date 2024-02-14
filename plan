@@ -11,6 +11,8 @@
 13. make all times formated ⏲
 14. utc ni sozlash ✅
 21. make models class ⏲
+22. sql dan undefined va empty stringlarni aniqlashtirish ✅
+23. file yuklashni dynamic qilish ⛔️
 20. make validaton for company strings length
 15. refoctor erroBack build-in function
 16. make multiple places for images
