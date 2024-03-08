@@ -32,6 +32,11 @@ let WareHouseController = class WareHouseController {
     getWarehouses(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                const error = (0, express_validator_1.validationResult)(req);
+                if (!error.isEmpty()) {
+                    res.status(statusCodeEnum_1.default.badRequest).json({ error: error.array() });
+                    return;
+                }
                 const data = yield (0, warehouses_model_1.getWareHousesModel)(req);
                 if (data) {
                     return res.status(statusCodeEnum_1.default.success).json(data);
@@ -153,6 +158,7 @@ let WareHouseController = class WareHouseController {
 exports.WareHouseController = WareHouseController;
 __decorate([
     (0, decorators_1.get)('/list'),
+    (0, decorators_1.validator)(wareHouse_validator_1.validategetRequestBody),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, Function]),
     __metadata("design:returntype", Promise)

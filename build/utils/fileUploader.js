@@ -22,7 +22,6 @@ const warehouse_sql_1 = __importDefault(require("../sqlQueries/warehouse.sql"));
 const HttpErrors_1 = require("./HttpErrors");
 function fileUploader(uploadedFile, id, utc = 0, isUpdate) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log({ uploadedFile });
         if (uploadedFile) {
             // cheking filter params
             let nameFile = yield (0, inputFormatter_1.getRandomName)(uploadedFile);

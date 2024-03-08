@@ -10,7 +10,6 @@ async function fileUploader(uploadedFile: {
     mv(arg0: string, arg1: (err: any) => void): unknown; name: string,
     size: number, mimetype: string
 }, id?: string, utc = 0, isUpdate?: any) {
-    console.log({ uploadedFile });
 
     if (uploadedFile) {
 

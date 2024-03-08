@@ -1,14 +1,22 @@
 import { NextFunction, Request, Response } from "express";
-import { controller, del, get, patch, post } from "./decorators";
+import { controller, del, get, patch, post, validator } from "./decorators";
 import { CompanyModel } from '../models'
 import StatusCode from "../enums/statusCodeEnum";
 import { InternalServerError, NotFoundError, checkCompanies } from "../utils";
 import { validationResult } from "express-validator";
+import { validategetRequestBody } from "../validators/wareHouse.validator";
+import { companyPatchValidator, companyPostValidator } from "../validators/company.validator";
 @controller('/companies')
 export class Company {
     @get('/list')
+    @validator(validategetRequestBody)
     async getComapines(req: Request, res: Response, next: NextFunction) {
         try {
+            const error = validationResult(req);
+            if (!error.isEmpty()) {
+                res.status(StatusCode.badRequest).json({ error: error.array() });
+                return;
+            }
             const data = await CompanyModel.getCompanies(req);
             if (data) {
                 return res.status(StatusCode.created).json(data)
@@ -19,6 +27,7 @@ export class Company {
         }
     }
     @post('/post')
+    @validator(companyPostValidator)
     async postCompanies(req: Request, res: Response, next: NextFunction) {
         try {
             const error = validationResult(req);
@@ -37,6 +46,7 @@ export class Company {
         }
     }
     @patch('/patch/:id')
+    @validator(companyPatchValidator)
     async patchCompanies(req: Request, res: Response, next: NextFunction) {
         try {
             const error = validationResult(req);
@@ -55,6 +65,7 @@ export class Company {
         }
     }
     @patch('/img-del/:id')
+    @validator(companyPatchValidator)
     async delCompanyImg(req: Request, res: Response, next: NextFunction) {
         try {
             const error = validationResult(req);
@@ -74,6 +85,7 @@ export class Company {
         }
     }
     @del('/delete/:id')
+    @validator(companyPatchValidator)
     async delCompany(req: Request, res: Response, next: NextFunction) {
         try {
             const error = validationResult(req);
@@ -93,6 +105,7 @@ export class Company {
         }
     }
     @patch('/restore/:id')
+    @validator(companyPatchValidator)
     async RestoreCompany(req: Request, res: Response, next: NextFunction) {
         try {
             const error = validationResult(req);
@@ -112,6 +125,7 @@ export class Company {
         }
     }
     @patch('/enable/:id')
+    @validator(companyPatchValidator)
     async EnableDisableCompany(req: Request, res: Response, next: NextFunction) {
         try {
             const error = validationResult(req);

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { EnableDisableWareHousesModel, deleteWareHouseImagesModel, deleteWareHousesModel, getWareHousesModel, patchWareHousesModel, postWareHousesModel, restoreWareHousesModel } from '../routes/warehouses/warehouses.model';
 import StatusCode from '../enums/statusCodeEnum';
 import { controller, validator, del, get, patch, post } from "./decorators"
-import { wareHousePatchValidator, wareHousePostValidator } from '../validators/wareHouse.validator';
+import { wareHousePatchValidator, wareHousePostValidator, validategetRequestBody } from '../validators/wareHouse.validator';
 import { validationResult } from 'express-validator';
 import { checkWarehouses, InternalServerError, NotFoundError } from '../utils';
 
@@ -12,8 +12,14 @@ import { checkWarehouses, InternalServerError, NotFoundError } from '../utils';
 @controller('/warehouses')
 export class WareHouseController {
     @get('/list')
+    @validator(validategetRequestBody)
     async getWarehouses(req: Request, res: Response, next: NextFunction) {
         try {
+            const error = validationResult(req);
+            if (!error.isEmpty()) {
+                res.status(StatusCode.badRequest).json({ error: error.array() });
+                return;
+            }
             const data = await getWareHousesModel(req);
             if (data) {
                 return res.status(StatusCode.success).json(data)

@@ -27,10 +27,17 @@ const models_1 = require("../models");
 const statusCodeEnum_1 = __importDefault(require("../enums/statusCodeEnum"));
 const utils_1 = require("../utils");
 const express_validator_1 = require("express-validator");
+const wareHouse_validator_1 = require("../validators/wareHouse.validator");
+const company_validator_1 = require("../validators/company.validator");
 let Company = class Company {
     getComapines(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                const error = (0, express_validator_1.validationResult)(req);
+                if (!error.isEmpty()) {
+                    res.status(statusCodeEnum_1.default.badRequest).json({ error: error.array() });
+                    return;
+                }
                 const data = yield models_1.CompanyModel.getCompanies(req);
                 if (data) {
                     return res.status(statusCodeEnum_1.default.created).json(data);
@@ -160,42 +167,49 @@ let Company = class Company {
 exports.Company = Company;
 __decorate([
     (0, decorators_1.get)('/list'),
+    (0, decorators_1.validator)(wareHouse_validator_1.validategetRequestBody),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, Function]),
     __metadata("design:returntype", Promise)
 ], Company.prototype, "getComapines", null);
 __decorate([
     (0, decorators_1.post)('/post'),
+    (0, decorators_1.validator)(company_validator_1.companyPostValidator),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, Function]),
     __metadata("design:returntype", Promise)
 ], Company.prototype, "postCompanies", null);
 __decorate([
     (0, decorators_1.patch)('/patch/:id'),
+    (0, decorators_1.validator)(company_validator_1.companyPatchValidator),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, Function]),
     __metadata("design:returntype", Promise)
 ], Company.prototype, "patchCompanies", null);
 __decorate([
     (0, decorators_1.patch)('/img-del/:id'),
+    (0, decorators_1.validator)(company_validator_1.companyPatchValidator),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, Function]),
     __metadata("design:returntype", Promise)
 ], Company.prototype, "delCompanyImg", null);
 __decorate([
     (0, decorators_1.del)('/delete/:id'),
+    (0, decorators_1.validator)(company_validator_1.companyPatchValidator),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, Function]),
     __metadata("design:returntype", Promise)
 ], Company.prototype, "delCompany", null);
 __decorate([
     (0, decorators_1.patch)('/restore/:id'),
+    (0, decorators_1.validator)(company_validator_1.companyPatchValidator),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, Function]),
     __metadata("design:returntype", Promise)
 ], Company.prototype, "RestoreCompany", null);
 __decorate([
     (0, decorators_1.patch)('/enable/:id'),
+    (0, decorators_1.validator)(company_validator_1.companyPatchValidator),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, Function]),
     __metadata("design:returntype", Promise)
