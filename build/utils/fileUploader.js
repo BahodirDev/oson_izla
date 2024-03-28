@@ -18,7 +18,7 @@ const inputFormatter_1 = require("./inputFormatter");
 const filterEnum_1 = __importDefault(require("../enums/filterEnum"));
 const globalPathEnum_1 = __importDefault(require("../enums/globalPathEnum"));
 const database_1 = require("../config/database");
-const warehouse_sql_1 = __importDefault(require("../sqlQueries/warehouse.sql"));
+const sqlQueries_1 = require("../sqlQueries");
 const HttpErrors_1 = require("./HttpErrors");
 function fileUploader(uploadedFile, id, utc = 0, isUpdate) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -68,7 +68,7 @@ function fileUploader(uploadedFile, id, utc = 0, isUpdate) {
 exports.fileUploader = fileUploader;
 function fileUnuploader(id) {
     return __awaiter(this, void 0, void 0, function* () {
-        const warehouse = yield (0, database_1.fetch)(warehouse_sql_1.default.GET_WAREHOUSE, id, false, true, 0);
+        const warehouse = yield (0, database_1.fetch)(sqlQueries_1.GET_WAREHOUSE, id, false, true, 0);
         if (warehouse === null || warehouse === void 0 ? void 0 : warehouse.warehouse_img) {
             try {
                 const fileFolder = globalPathEnum_1.default.fileUploadPath;

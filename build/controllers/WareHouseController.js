@@ -22,7 +22,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WareHouseController = void 0;
-const warehouses_model_1 = require("../routes/warehouses/warehouses.model");
+// import { EnableDisableWareHousesModel, deleteWareHouseImagesModel, deleteWareHousesModel, getWareHousesModel, patchWareHousesModel, postWareHousesModel, restoreWareHousesModel } from '../routes/warehouses/warehouses.model';
+const WareHouseModel_1 = require("../models/WareHouseModel");
 const statusCodeEnum_1 = __importDefault(require("../enums/statusCodeEnum"));
 const decorators_1 = require("./decorators");
 const wareHouse_validator_1 = require("../validators/wareHouse.validator");
@@ -37,7 +38,7 @@ let WareHouseController = class WareHouseController {
                     res.status(statusCodeEnum_1.default.badRequest).json({ error: error.array() });
                     return;
                 }
-                const data = yield (0, warehouses_model_1.getWareHousesModel)(req);
+                const data = yield WareHouseModel_1.WareHouseModel.getWareHouses(req);
                 if (data) {
                     return res.status(statusCodeEnum_1.default.success).json(data);
                 }
@@ -57,7 +58,7 @@ let WareHouseController = class WareHouseController {
                     return;
                 }
                 yield (0, utils_1.checkWarehouses)(req === null || req === void 0 ? void 0 : req.body);
-                const data = yield (0, warehouses_model_1.postWareHousesModel)(req);
+                const data = yield WareHouseModel_1.WareHouseModel.postWareHouses(req);
                 if (data) {
                     return res.status(statusCodeEnum_1.default.success).json(data);
                 }
@@ -75,7 +76,7 @@ let WareHouseController = class WareHouseController {
                     res.status(statusCodeEnum_1.default.badRequest).json({ error: error.array() });
                 }
                 yield (0, utils_1.checkWarehouses)(req === null || req === void 0 ? void 0 : req.body);
-                const data = yield (0, warehouses_model_1.patchWareHousesModel)(req);
+                const data = yield WareHouseModel_1.WareHouseModel.patchWareHouses(req);
                 if (!data)
                     throw new utils_1.NotFoundError("this warehouse is not defined");
                 res.status(statusCodeEnum_1.default.created).json(data);
@@ -93,7 +94,7 @@ let WareHouseController = class WareHouseController {
                 if (!error.isEmpty()) {
                     res.status(statusCodeEnum_1.default.badRequest).json({ error: error.array() });
                 }
-                const data = yield (0, warehouses_model_1.deleteWareHouseImagesModel)(req);
+                const data = yield WareHouseModel_1.WareHouseModel.deleteWareHouseImages(req);
                 if (!data)
                     throw new utils_1.NotFoundError("this warehouse_img is not defined");
                 res.status(statusCodeEnum_1.default.success).json(data);
@@ -110,7 +111,7 @@ let WareHouseController = class WareHouseController {
                 if (!error.isEmpty()) {
                     res.status(statusCodeEnum_1.default.badRequest).json({ error: error.array() });
                 }
-                const data = yield (0, warehouses_model_1.deleteWareHousesModel)(req);
+                const data = yield WareHouseModel_1.WareHouseModel.deleteWareHouses(req);
                 if (!data)
                     throw new utils_1.NotFoundError("this warehouse is not defined");
                 res.status(statusCodeEnum_1.default.success).json(data);
@@ -120,14 +121,14 @@ let WareHouseController = class WareHouseController {
             }
         });
     }
-    restoreWareHouseImagesController(req, res, next) {
+    restoreWareHouseController(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const error = (0, express_validator_1.validationResult)(req);
                 if (!error.isEmpty()) {
                     res.status(statusCodeEnum_1.default.badRequest).json({ error: error.array() });
                 }
-                const data = yield (0, warehouses_model_1.restoreWareHousesModel)(req);
+                const data = yield WareHouseModel_1.WareHouseModel.restoreWareHouse(req);
                 if (!data)
                     throw new utils_1.NotFoundError("this warehouse is not defined");
                 res.status(statusCodeEnum_1.default.success).json(data);
@@ -137,14 +138,14 @@ let WareHouseController = class WareHouseController {
             }
         });
     }
-    EnableDisableWareHouseImagesController(req, res, next) {
+    disableEnableWareHouseImagesController(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const error = (0, express_validator_1.validationResult)(req);
                 if (!error.isEmpty()) {
                     res.status(statusCodeEnum_1.default.badRequest).json({ error: error.array() });
                 }
-                const data = yield (0, warehouses_model_1.EnableDisableWareHousesModel)(req);
+                const data = yield WareHouseModel_1.WareHouseModel.disableEnableWareHouse(req);
                 if (!data)
                     throw new utils_1.NotFoundError("this warehouse is not defined");
                 res.status(statusCodeEnum_1.default.success).json(data);
@@ -197,14 +198,14 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, Function]),
     __metadata("design:returntype", Promise)
-], WareHouseController.prototype, "restoreWareHouseImagesController", null);
+], WareHouseController.prototype, "restoreWareHouseController", null);
 __decorate([
     (0, decorators_1.patch)("/enable/:id"),
     (0, decorators_1.validator)(wareHouse_validator_1.wareHousePatchValidator),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, Function]),
     __metadata("design:returntype", Promise)
-], WareHouseController.prototype, "EnableDisableWareHouseImagesController", null);
+], WareHouseController.prototype, "disableEnableWareHouseImagesController", null);
 exports.WareHouseController = WareHouseController = __decorate([
     (0, decorators_1.controller)('/warehouses')
 ], WareHouseController);

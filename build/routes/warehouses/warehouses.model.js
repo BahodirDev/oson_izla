@@ -40,6 +40,8 @@ function postWareHousesModel(req) {
             // Concatenate all file names into a single string (if there are multiple files)
             nameFile = nameFiles.join(',');
         }
+        console.log({ nameFile });
+        console.log({ name });
         return yield (0, database_1.fetch)(warehouse_sql_1.default.CREATE_NEW_WAREHOUSE, name, nameFile);
     });
 }

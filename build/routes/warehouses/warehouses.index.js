@@ -1,15 +1,21 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.wareHouseRouter = void 0;
-const express_1 = require("express");
-let router = (0, express_1.Router)();
-exports.wareHouseRouter = router;
-const wareHouse_validator_1 = require("../../validators/wareHouse.validator");
-const warehouses_controller_1 = require("./warehouses.controller");
-router.get('/warehouses/list', warehouses_controller_1.getWareHousesController);
-router.post('/warehouses/post', wareHouse_validator_1.wareHousePostValidator, warehouses_controller_1.postWareHousesController);
-router.patch('/warehouses/patch/:id', wareHouse_validator_1.wareHousePatchValidator, warehouses_controller_1.patchWareHousesController);
-router.patch('/warehouses/img-del/:id', wareHouse_validator_1.wareHousePatchValidator, warehouses_controller_1.deleteWareHouseImagesController);
-router.patch('/warehouses/restore/:id', wareHouse_validator_1.wareHousePatchValidator, warehouses_controller_1.restoreWareHouseImagesController);
-router.patch('/warehouses/enable/:id', wareHouse_validator_1.wareHousePatchValidator, warehouses_controller_1.EnableDisableWareHouseImagesController);
-router.delete('/warehouses/delete/:id', wareHouse_validator_1.wareHousePatchValidator, warehouses_controller_1.deleteWareHousesController);
+// import { Router } from 'express';
+// let router: Router = Router();
+// import { wareHousePostValidator, wareHousePatchValidator } from "../../validators/wareHouse.validator"
+// import { 
+//     EnableDisableWareHouseImagesController,
+//     restoreWareHouseImagesController,
+//     deleteWareHouseImagesController, 
+//     deleteWareHousesController, 
+//     patchWareHousesController, 
+//     postWareHousesController, 
+//     getWareHousesController, 
+// } from './warehouses.controller'
+// router.get('/warehouses/list', getWareHousesController);
+// router.post('/warehouses/post', wareHousePostValidator, postWareHousesController);
+// router.patch('/warehouses/patch/:id', wareHousePatchValidator, patchWareHousesController);
+// router.patch('/warehouses/img-del/:id', wareHousePatchValidator, deleteWareHouseImagesController);
+// router.patch('/warehouses/restore/:id', wareHousePatchValidator, restoreWareHouseImagesController);
+// router.patch('/warehouses/enable/:id', wareHousePatchValidator, EnableDisableWareHouseImagesController);
+// router.delete('/warehouses/delete/:id', wareHousePatchValidator, deleteWareHousesController);
+// export { router as wareHouseRouter };

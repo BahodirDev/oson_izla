@@ -8,18 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkCompanies = exports.checkWarehouses = void 0;
 const database_1 = require("../config/database");
-const warehouse_sql_1 = __importDefault(require("../sqlQueries/warehouse.sql"));
 const HttpErrors_1 = require("./HttpErrors");
 const sqlQueries_1 = require("../sqlQueries");
 function checkWarehouses({ name }) {
     return __awaiter(this, void 0, void 0, function* () {
-        const isExist = yield (0, database_1.fetchAll)(warehouse_sql_1.default.CHECK_IF_EXIST, name);
+        const isExist = yield (0, database_1.fetchAll)(sqlQueries_1.CHECK_IF_EXIST, name);
         if (isExist.length > 0) {
             throw new HttpErrors_1.BadUserInput(`${name} is already exist`, '');
         }

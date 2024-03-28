@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { EnableDisableWareHousesModel, deleteWareHouseImagesModel, deleteWareHousesModel, getWareHousesModel, patchWareHousesModel, postWareHousesModel, restoreWareHousesModel } from '../routes/warehouses/warehouses.model';
+// import { EnableDisableWareHousesModel, deleteWareHouseImagesModel, deleteWareHousesModel, getWareHousesModel, patchWareHousesModel, postWareHousesModel, restoreWareHousesModel } from '../routes/warehouses/warehouses.model';
+import {WareHouseModel} from '../models/WareHouseModel'
 import StatusCode from '../enums/statusCodeEnum';
 import { controller, validator, del, get, patch, post } from "./decorators"
 import { wareHousePatchValidator, wareHousePostValidator, validategetRequestBody } from '../validators/wareHouse.validator';
@@ -20,7 +21,7 @@ export class WareHouseController {
                 res.status(StatusCode.badRequest).json({ error: error.array() });
                 return;
             }
-            const data = await getWareHousesModel(req);
+            const data  = await WareHouseModel.getWareHouses(req);
             if (data) {
                 return res.status(StatusCode.success).json(data)
             }
@@ -41,7 +42,7 @@ export class WareHouseController {
                 return;
             }
             await checkWarehouses(req?.body);
-            const data = await postWareHousesModel(req);
+            const data = await WareHouseModel.postWareHouses(req);
             if (data) {
                 return res.status(StatusCode.success).json(data)
             }
@@ -49,7 +50,6 @@ export class WareHouseController {
             next(error)
         }
     }
-
 
     @patch('/patch/:id')
     @validator(wareHousePatchValidator)
@@ -60,7 +60,7 @@ export class WareHouseController {
                 res.status(StatusCode.badRequest).json({ error: error.array() })
             }
             await checkWarehouses(req?.body);
-            const data = await patchWareHousesModel(req);
+            const data = await WareHouseModel.patchWareHouses(req);
 
             if (!data) throw new NotFoundError("this warehouse is not defined")
 
@@ -80,7 +80,7 @@ export class WareHouseController {
             if (!error.isEmpty()) {
                 res.status(StatusCode.badRequest).json({ error: error.array() })
             }
-            const data = await deleteWareHouseImagesModel(req);
+            const data = await WareHouseModel.deleteWareHouseImages(req);
             if (!data) throw new NotFoundError("this warehouse_img is not defined");
             res.status(StatusCode.success).json(data)
         } catch (error) {
@@ -96,7 +96,7 @@ export class WareHouseController {
             if (!error.isEmpty()) {
                 res.status(StatusCode.badRequest).json({ error: error.array() })
             }
-            const data = await deleteWareHousesModel(req);
+            const data = await WareHouseModel.deleteWareHouses(req);
             if (!data) throw new NotFoundError("this warehouse is not defined");
             res.status(StatusCode.success).json(data)
         } catch (error) {
@@ -106,13 +106,13 @@ export class WareHouseController {
 
     @patch("/restore/:id")
     @validator(wareHousePatchValidator)
-    async restoreWareHouseImagesController(req: Request, res: Response, next: NextFunction) {
+    async restoreWareHouseController(req: Request, res: Response, next: NextFunction) {
         try {
             const error = validationResult(req);
             if (!error.isEmpty()) {
                 res.status(StatusCode.badRequest).json({ error: error.array() })
             }
-            const data = await restoreWareHousesModel(req);
+            const data = await WareHouseModel.restoreWareHouse(req);
             if (!data) throw new NotFoundError("this warehouse is not defined");
             res.status(StatusCode.success).json(data)
         } catch (error) {
@@ -122,13 +122,13 @@ export class WareHouseController {
 
     @patch("/enable/:id")
     @validator(wareHousePatchValidator)
-    async EnableDisableWareHouseImagesController(req: Request, res: Response, next: NextFunction) {
+    async disableEnableWareHouseImagesController(req: Request, res: Response, next: NextFunction) {
         try {
             const error = validationResult(req);
             if (!error.isEmpty()) {
                 res.status(StatusCode.badRequest).json({ error: error.array() })
             }
-            const data = await EnableDisableWareHousesModel(req);
+            const data = await WareHouseModel.disableEnableWareHouse(req);
             if (!data) throw new NotFoundError("this warehouse is not defined");
             res.status(StatusCode.success).json(data)
         } catch (error) {

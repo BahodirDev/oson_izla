@@ -3,7 +3,6 @@ import morgan from "morgan"
 import express from "express"
 import fileUpload from "express-fileupload";
 import { getUtcCallback } from "./utils/getUtcCallback.js";
-// import { routes } from './routes'
 import errorCallback from "./utils/errorCallback.js";
 import { AppRouter } from "./AppRouter"
 import './controllers'

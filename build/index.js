@@ -8,7 +8,6 @@ const morgan_1 = __importDefault(require("morgan"));
 const express_1 = __importDefault(require("express"));
 const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const getUtcCallback_js_1 = require("./utils/getUtcCallback.js");
-// import { routes } from './routes'
 const errorCallback_js_1 = __importDefault(require("./utils/errorCallback.js"));
 const AppRouter_1 = require("./AppRouter");
 require("./controllers");

@@ -3,7 +3,7 @@ import { getRandomName } from './inputFormatter'
 import FileEnum from '../enums/filterEnum'
 import GlobalPathes from '../enums/globalPathEnum'
 import { fetchAll, fetch } from '../config/database'
-import warehouseSQL from '../sqlQueries/warehouse.sql'
+import { GET_WAREHOUSE } from '../sqlQueries'
 import { BadUserInput, InternalServerError } from "./HttpErrors"
 
 async function fileUploader(uploadedFile: {
@@ -63,7 +63,7 @@ async function fileUploader(uploadedFile: {
 }
 
 async function fileUnuploader(id: string) {
-    const warehouse: { warehouse_img: string } = await fetch(warehouseSQL.GET_WAREHOUSE, id, false, true, 0);
+    const warehouse: { warehouse_img: string } = await fetch(GET_WAREHOUSE, id, false, true, 0);
     if (warehouse?.warehouse_img) {
         try {
             const fileFolder = GlobalPathes.fileUploadPath;

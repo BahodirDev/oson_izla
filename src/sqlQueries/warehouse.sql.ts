@@ -1,5 +1,5 @@
 
-const GET_WAREHOUSES = `
+export const GET_WAREHOUSES = `
     SELECT 
     wh.*,
     to_char(wh.warehouse_createdat AT TIME ZONE $6, 'YYYY-MM-DD HH24:MI:SS') as warehouse_createdat,
@@ -22,7 +22,7 @@ const GET_WAREHOUSES = `
         OFFSET $1 ROWS FETCH FIRST $2 ROW ONLY
 `;
 
-const GET_WAREHOUSE = `
+export const GET_WAREHOUSE = `
     SELECT 
     wh.*,
     to_char(wh.warehouse_createdat AT TIME ZONE $4, 'YYYY-MM-DD HH24:MI:SS') as warehouse_createdat,
@@ -42,20 +42,20 @@ const GET_WAREHOUSE = `
         ORDER BY warehouse_id DESC
 `;
 
-const CHECK_IF_EXIST = `
+export const CHECK_IF_EXIST = `
     SELECT wh.warehouse_name
     from warehouses as wh
     where wh.warehouse_name = $1 and warehouse_deletedat is null
 `;
 
-const CREATE_NEW_WAREHOUSE = `
+export const CREATE_NEW_WAREHOUSE = `
     INSERT INTO 
     warehouses(warehouse_name,warehouse_img)
     VALUES($1,$2)
     returning *
 `;
 
-const EDIT_WAREHOUSE = `
+export const EDIT_WAREHOUSE = `
     UPDATE warehouses
         set
          warehouse_name = 
@@ -72,14 +72,14 @@ const EDIT_WAREHOUSE = `
         returning *    
 `;
 
-const EDIT_WAREHOUSE_IMG = `
+export const EDIT_WAREHOUSE_IMG = `
     UPDATE warehouses
         set warehouse_img = null
-        where warehouse_id = $1 and warehouse_img is not null  warehouse_deletedat is null
+        where warehouse_id = $1 and warehouse_img is not null and warehouse_deletedat is null
         returning *
 `
 
-const DELETE_WAREHOUSE = `
+export const DELETE_WAREHOUSE = `
         UPDATE warehouses 
         set warehouse_deletedat = CURRENT_TIMESTAMP,
         warehouse_active = false
@@ -87,14 +87,14 @@ const DELETE_WAREHOUSE = `
         returning *
 `
 
-const RESTORE_WAREHOUSE = `
+export const RESTORE_WAREHOUSE = `
     UPDATE warehouses
         set warehouse_deletedat = null
         where warehouse_id = $1 and warehouse_deletedat is not null
         returning *
 `;
 
-const DISABLE_ENABLE_WAREHOUSE = `
+export const DISABLE_ENABLE_WAREHOUSE = `
     UPDATE warehouses 
     SET warehouse_active = 
         CASE
@@ -106,7 +106,7 @@ const DISABLE_ENABLE_WAREHOUSE = `
 
 `;
 
-const warehouseSQL = {
+export const warehouseSQL = {
     DISABLE_ENABLE_WAREHOUSE,
     CREATE_NEW_WAREHOUSE,
     EDIT_WAREHOUSE_IMG,
@@ -118,4 +118,3 @@ const warehouseSQL = {
     GET_WAREHOUSE
 };
 
-export default warehouseSQL
